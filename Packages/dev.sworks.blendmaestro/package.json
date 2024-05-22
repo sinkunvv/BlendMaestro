@@ -1,0 +1,19 @@
+{
+  "name": "dev.sworks.blendmaestro",
+  "displayName": "dev.sworks.blendmaestro",
+  "version": "0.0.1",
+  "description": "Describe this Package",
+  "dependencies": {},
+  "gitDependencies": {},
+  "vpmDependencies": {
+    "com.vrchat.avatars": "3.6.0"
+  },
+  "author": {
+    "name": "sinkunvv",
+    "email": "sinkunvv.dev@gmail.com",
+    "url": "https://twitter.com/sinkunvv"
+  },
+  "legacyFolders": {},
+  "legacyFiles": {},
+  "localPath": "D:\\workspace\\BlendMaestro\\Packages\\dev.sworks.blendmaestro"
+}
