@@ -1,8 +1,8 @@
 {
   "name": "dev.sworks.blendmaestro",
   "displayName": "dev.sworks.blendmaestro",
-  "version": "0.0.1",
-  "description": "Describe this Package",
+  "version": "1.0.0",
+  "description": "Blendshape Merge Tool",
   "dependencies": {},
   "gitDependencies": {},
   "vpmDependencies": {
