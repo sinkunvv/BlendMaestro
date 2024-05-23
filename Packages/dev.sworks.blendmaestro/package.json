@@ -1,7 +1,7 @@
 {
   "name": "dev.sworks.blendmaestro",
   "displayName": "BlendMaestro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Blendshape Merge Tool",
   "dependencies": {},
   "gitDependencies": {},
@@ -15,5 +15,6 @@
   },
   "legacyFolders": {},
   "legacyFiles": {},
+  "license":"",
   "localPath": "D:\\workspace\\BlendMaestro\\Packages\\dev.sworks.blendmaestro"
 }
