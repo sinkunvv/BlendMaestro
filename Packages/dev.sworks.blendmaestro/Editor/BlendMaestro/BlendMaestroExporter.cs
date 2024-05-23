@@ -156,7 +156,7 @@ public class BlendMaestroExporter : EditorWindow
         if (!string.IsNullOrEmpty(path))
         {
             File.WriteAllText(path, json);
-            EditorUtility.DisplayDialog("完了", "インポートが完了しました", "OK");
+            EditorUtility.DisplayDialog("完了", "エクスポートが完了しました", "OK");
         }
     }
 
