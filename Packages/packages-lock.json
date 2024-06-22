@@ -1,11 +1,38 @@
 {
   "dependencies": {
+    "com.anatawa12.gists": {
+      "version": "file:com.anatawa12.gists",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.ai.navigation": {
-      "version": "1.1.4",
+      "version": "1.1.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.burst": {
+      "version": "1.8.12",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.collections": {
+      "version": "2.1.4",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.8.4",
+        "com.unity.modules.unityanalytics": "1.0.0",
+        "com.unity.nuget.mono-cecil": "1.11.4"
       },
       "url": "https://packages.unity.com"
     },
@@ -17,7 +44,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.24",
+      "version": "3.0.28",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -26,7 +53,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.18",
+      "version": "2.0.22",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -41,11 +68,34 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.mathematics": {
+      "version": "1.2.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.mono-cecil": {
+      "version": "1.11.4",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.postprocessing": {
+      "version": "3.4.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
@@ -69,7 +119,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.5",
+      "version": "1.7.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -87,6 +137,58 @@
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
+      }
+    },
+    "com.unity.xr.legacyinputhelpers": {
+      "version": "2.1.10",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.vr": "1.0.0",
+        "com.unity.modules.xr": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.management": {
+      "version": "4.4.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.subsystems": "1.0.0",
+        "com.unity.modules.vr": "1.0.0",
+        "com.unity.modules.xr": "1.0.0",
+        "com.unity.xr.legacyinputhelpers": "2.1.7"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.oculus": {
+      "version": "4.2.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.xr.management": "4.4.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.vrchat.avatars": {
+      "version": "file:com.vrchat.avatars",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.vrchat.base": {
+      "version": "file:com.vrchat.base",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.burst": "1.8.7",
+        "com.unity.collections": "2.1.4",
+        "com.unity.mathematics": "1.2.6",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.timeline": "1.7.6",
+        "com.unity.xr.management": "4.3.3",
+        "com.unity.xr.oculus": "4.0.0",
+        "com.unity.postprocessing": "3.2.2"
       }
     },
     "com.vrchat.core.bootstrap": {
@@ -113,6 +215,26 @@
     },
     "dev.sworks.blendmaestro": {
       "version": "file:dev.sworks.blendmaestro",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "jp.lilxyzw.liltoon": {
+      "version": "file:jp.lilxyzw.liltoon",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "nadena.dev.modular-avatar": {
+      "version": "file:nadena.dev.modular-avatar",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.0"
+      }
+    },
+    "nadena.dev.ndmf": {
+      "version": "file:nadena.dev.ndmf",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
