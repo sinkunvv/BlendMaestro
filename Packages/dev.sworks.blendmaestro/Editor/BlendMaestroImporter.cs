@@ -12,35 +12,38 @@ namespace dev.sworks.blendmaestro.Editor
         private BlendMaestroDataAssets blendMaestroDataAssets;
         private GameObject avater;
         private GameObject prefabVariant;
-        private string prefabVariantPath = "";
-        private string prefabVariantName = "";
         private GameObject newAvater;
         private bool modified = false;
 
         private List<SkinnedMeshRenderer> avaterMeshRendererList = new List<SkinnedMeshRenderer>();
         private List<string> avaterMeshNames = new List<string>();
         private List<SkinnedMeshRenderer> variantMeshRendererList = new List<SkinnedMeshRenderer>();
+        private static readonly Vector2 initialSize = new Vector2(400, 300);
 
         [MenuItem("Tools/BlendMaestro/Importer")]
+        [MenuItem("GameObject/BlendMaestro/Importer")]
+
         public static void ShowWindow()
         {
-            GetWindow<BlendMaestroImporter>("BlendMaestro-Importer");
+            BlendMaestroImporter window = GetWindow<BlendMaestroImporter>("BlendMaestro-Importer");
+            window.minSize = initialSize;
+            window.maxSize = initialSize;
         }
 
 
         private void OnGUI()
         {
-            EditorGUILayout.LabelField("FBXファイルを選択してください:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("アバターを選択してください:", EditorStyles.boldLabel);
             avater = (GameObject)EditorGUILayout.ObjectField(avater, typeof(GameObject), true);
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField("JSONファイルを選択してください:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("BlendMaestroDataAssetsを選択してください:", EditorStyles.boldLabel);
             blendMaestroDataAssets = (BlendMaestroDataAssets)EditorGUILayout.ObjectField(blendMaestroDataAssets, typeof(BlendMaestroDataAssets), true);
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("ブレンドシェイプをインポート"))
+            if (GUILayout.Button("Import"))
             {
-                ImportBlendShapesFromJson();
+                ImportBlendShapesFromAssets();
             }
 
             // Prefab更新チェック
@@ -80,18 +83,18 @@ namespace dev.sworks.blendmaestro.Editor
 
         private void createPrefabVariant()
         {
-            Object prefab = PrefabUtility.GetCorrespondingObjectFromSource(avater);
-            if (prefab != null)
+            // Object prefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(avater);
+            if (avater != null)
             {
-                prefabVariant = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-                prefabVariant.name = prefabVariant.name + "_Modified";
-                prefabVariantPath = UnityEditor.AssetDatabase.GetAssetPath(prefab).Replace(prefab.name, prefabVariantName);
-                // PrefabUtility.SaveAsPrefabAsset(prefabVariant, prefabVariantPath);
+                prefabVariant = Instantiate(avater);
+                // prefabVariant = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+                prefabVariant.name = avater.name + "_Modified";
+                // prefabVariant.name = prefab.name + "_Modified";
                 getVariantMeshList();
             }
         }
 
-        private void ImportBlendShapesFromJson()
+        private void ImportBlendShapesFromAssets()
         {
             if (blendMaestroDataAssets == null)
             {
@@ -112,6 +115,7 @@ namespace dev.sworks.blendmaestro.Editor
             // 変更チェック
             foreach (var mesh in avaterMeshRendererList)
             {
+                Debug.Log(mesh);
                 if (mesh.sharedMesh.name == importData.meshName)
                 {
                     modified = true;

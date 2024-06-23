@@ -3,9 +3,6 @@
     "nadena.dev.modular-avatar": {
       "version": "1.9.13"
     },
-    "com.anatawa12.gists": {
-      "version": "0.14.0"
-    },
     "jp.lilxyzw.liltoon": {
       "version": "1.7.3"
     }
@@ -30,10 +27,6 @@
     },
     "nadena.dev.ndmf": {
       "version": "1.4.1",
-      "dependencies": {}
-    },
-    "com.anatawa12.gists": {
-      "version": "0.14.0",
       "dependencies": {}
     },
     "jp.lilxyzw.liltoon": {

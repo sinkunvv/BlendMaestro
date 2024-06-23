@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 using dev.sworks.blendmaestro.runtime.model;
 using dev.sworks.blendmaestro.runtime.utils;
 
@@ -17,16 +18,21 @@ namespace dev.sworks.blendmaestro.runtime.Editor
         private List<string> blendShapeNames = new List<string>();
         private List<int> selectedBlendShapeIndices = new List<int>();
         private Vector2 scrollPosition;
+        private static readonly Vector2 initialSize = new Vector2(400, 300);
 
         [MenuItem("Tools/BlendMaestro/Exporter")]
+        [MenuItem("GameObject/BlendMaestro/Exporter")]
+
         public static void ShowWindow()
         {
-            GetWindow<BlendMaestroExporter>("BlendMaestro-Exporter");
+            BlendMaestroExporter window = GetWindow<BlendMaestroExporter>("BlendMaestro-Exporter");
+            window.minSize = initialSize;
+            window.maxSize = initialSize;
         }
 
         private void OnGUI()
         {
-            EditorGUILayout.LabelField("FBXファイルを選択してください:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("アバターを選択してください:", EditorStyles.boldLabel);
             GameObject newSelectedFbx = (GameObject)EditorGUILayout.ObjectField(selectedFbx, typeof(GameObject), true);
 
             if (newSelectedFbx != selectedFbx)
@@ -76,10 +82,6 @@ namespace dev.sworks.blendmaestro.runtime.Editor
                     }
                 }
             }
-            else
-            {
-                EditorGUILayout.LabelField("ブレンドシェイプが存在するメッシュが見つかりませんでした");
-            }
         }
 
         private void LoadMeshesWithBlendShapes(GameObject fbx)
@@ -98,11 +100,11 @@ namespace dev.sworks.blendmaestro.runtime.Editor
             if (meshList.Count > 0)
             {
                 selectedMesh = meshList[0];
-                Debug.Log("ブレンドシェイプが存在するメッシュが正常に読み込まれました");
             }
             else
             {
-                Debug.LogWarning("ブレンドシェイプが存在するメッシュが見つかりませんでした");
+                EditorUtility.DisplayDialog("ERROR", "ブレンドシェイプが存在するメッシュが見つかりませんでした\nFBXのデータを確認してください", "OK");
+                return;
             }
         }
 
@@ -127,14 +129,50 @@ namespace dev.sworks.blendmaestro.runtime.Editor
             return names.ToArray();
         }
 
+        private bool checkFBXImporter()
+        {
+            GameObject fbx = selectedFbx;
+            var type = PrefabUtility.GetPrefabInstanceStatus(fbx);
+            if (type != PrefabInstanceStatus.NotAPrefab)
+            {
+                fbx = PrefabUtility.GetCorrespondingObjectFromSource(selectedFbx) as GameObject;
+            }
+
+            string fbxPath = AssetDatabase.GetAssetPath(fbx);
+            ModelImporter modelImporter = AssetImporter.GetAtPath(fbxPath) as ModelImporter;
+            if (modelImporter == null)
+            {
+                EditorUtility.DisplayDialog("ERROR", "FBXのパス取得に失敗しました。\nFBXデータを確認してください。", "OK");
+                return false;
+            }
+
+            // check legacy blencshape normals
+            string pName = "legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes";
+            PropertyInfo prop = modelImporter.GetType().GetProperty(pName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            if (!(bool)prop.GetValue(modelImporter))
+            {
+                // Enable Legacy BlendShape Normals
+                prop.SetValue(modelImporter, true);
+                EditorUtility.SetDirty(modelImporter);
+                modelImporter.SaveAndReimport();
+                return true;
+            }
+            return true;
+        }
+
         private void ExportBlendShapesToAsset()
         {
             if (selectedMesh == null || selectedBlendShapeIndices.Count == 0)
             {
-                Debug.LogError("メッシュまたはブレンドシェイプが選択されていません");
+                EditorUtility.DisplayDialog("ERROR", "ブレンドシェイプキーを1つ以上選択してください。", "OK");
                 return;
             }
 
+            if (!checkFBXImporter())
+            {
+                EditorUtility.DisplayDialog("ERROR", "Legacy BlendShape NormalsがOFFになっています\n自動ONに失敗したため、手動でONにしてください。", "OK");
+                return;
+            }
             List<BlendMaestroData> blendShapesData = new List<BlendMaestroData>();
             foreach (var index in selectedBlendShapeIndices)
             {
@@ -160,7 +198,7 @@ namespace dev.sworks.blendmaestro.runtime.Editor
             BlendMaestroDataAssets asset = ScriptableObject.CreateInstance<BlendMaestroDataAssets>();
             asset.VertexData = compressJson;
 
-            string path = EditorUtility.SaveFilePanelInProject(".assetsにエクスポート", "BlendMaestroDataAssets", "asset", "保存する場所を選択してください");
+            string path = EditorUtility.SaveFilePanelInProject("Export", "BlendMaestroDataAssets", "asset", "保存する場所を選択してください");
 
             if (!string.IsNullOrEmpty(path))
             {
