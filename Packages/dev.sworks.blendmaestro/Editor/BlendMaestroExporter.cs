@@ -23,11 +23,20 @@ namespace dev.sworks.blendmaestro.runtime.Editor
         [MenuItem("Tools/BlendMaestro/Exporter")]
         [MenuItem("GameObject/BlendMaestro/Exporter")]
 
-        public static void ShowWindow()
+        public static void ShowWindow(MenuCommand menuCommand)
         {
             BlendMaestroExporter window = GetWindow<BlendMaestroExporter>("BlendMaestro-Exporter");
+
+            window.selectedFbx = menuCommand.context as GameObject;
             window.minSize = initialSize;
             window.maxSize = initialSize;
+        }
+
+        // メニューアイテムの有効/無効を切り替える条件を設定
+        [MenuItem("GameObject/BlendMaestro/Exporter", true)]
+        private static bool ValidateShowWindow()
+        {
+            return Selection.activeObject is GameObject;
         }
 
         private void OnGUI()
