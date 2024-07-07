@@ -10,7 +10,8 @@ namespace dev.sworks.blendmaestro.runtime.Editor
 {
     public class BlendMaestroExporter : EditorWindow
     {
-        private GameObject selectedFbx;
+        private GameObject avater;
+        private GameObject avaterDiff;
         private Mesh selectedMesh;
         private int selectedMeshIndex = 0;
         private int newSelectedMeshIndex = 0;
@@ -27,7 +28,7 @@ namespace dev.sworks.blendmaestro.runtime.Editor
         {
             BlendMaestroExporter window = GetWindow<BlendMaestroExporter>("BlendMaestro-Exporter");
 
-            window.selectedFbx = menuCommand.context as GameObject;
+            window.avater = menuCommand.context as GameObject;
             window.minSize = initialSize;
             window.maxSize = initialSize;
         }
@@ -42,14 +43,14 @@ namespace dev.sworks.blendmaestro.runtime.Editor
         private void OnGUI()
         {
             EditorGUILayout.LabelField("アバターを選択してください:", EditorStyles.boldLabel);
-            GameObject newSelectedFbx = (GameObject)EditorGUILayout.ObjectField(selectedFbx, typeof(GameObject), true);
-
-            if (newSelectedFbx != selectedFbx)
+            avater = (GameObject)EditorGUILayout.ObjectField(avater, typeof(GameObject), true);
+            
+            if (avater != avaterDiff)
             {
-                selectedFbx = newSelectedFbx;
-                if (selectedFbx != null)
+                avaterDiff = avater;
+                if (avater != null)
                 {
-                    LoadMeshesWithBlendShapes(selectedFbx);
+                    LoadMeshesWithBlendShapes(avater);
                     LoadBlendShapes(selectedMesh);
                 }
             }
@@ -140,11 +141,11 @@ namespace dev.sworks.blendmaestro.runtime.Editor
 
         private bool checkFBXImporter()
         {
-            GameObject fbx = selectedFbx;
+            GameObject fbx = avaterDiff;
             var type = PrefabUtility.GetPrefabInstanceStatus(fbx);
             if (type != PrefabInstanceStatus.NotAPrefab)
             {
-                fbx = PrefabUtility.GetCorrespondingObjectFromSource(selectedFbx) as GameObject;
+                fbx = PrefabUtility.GetCorrespondingObjectFromSource(avaterDiff) as GameObject;
             }
 
             string fbxPath = AssetDatabase.GetAssetPath(fbx);
