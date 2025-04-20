@@ -1,14 +1,11 @@
 {
     "name": "dev.sworks.blendmaestro",
     "rootNamespace": "",
-    "references": [
-        "VRC.SDK3A",
-        "VRC.SDKBase"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
+    "overrideReferences": true,
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
