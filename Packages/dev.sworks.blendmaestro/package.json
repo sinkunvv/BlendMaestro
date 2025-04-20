@@ -3,16 +3,12 @@
   "displayName": "BlendMaestro",
   "version": "1.1.6",
   "description": "Non Destructive Blendshape Merge Tool",
-  "gitDependencies": {},
-  "vpmDependencies": {
-    "com.vrchat.avatars": "3.6.1"
-  },
   "author": {
     "name": "sinkunvv",
     "email": "",
     "url": "https://twitter.com/sinkunvv"
   },
-  "legacyFolders": {},
-  "legacyFiles": {},
-  "localPath": "D:\\workspace\\BlendMaestro\\Packages\\dev.sworks.blendmaestro"
+  "legacyFolders": {
+    "Assets/S.WORKS/BlendMaestro": "b07e337758056b44baa518786055d975"
+  }
 }
